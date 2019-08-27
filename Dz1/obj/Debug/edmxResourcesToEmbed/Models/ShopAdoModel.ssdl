@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ShopAdoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Surname" Type="varchar" MaxLength="50" />
+    <Property Name="Birthday" Type="date" />
+    <Property Name="LoyaltyProgramId" Type="int" />
+    <Property Name="TotalSumm" Type="float" />
+  </EntityType>
+  <EntityType Name="Disti">
+    <Key>
+      <PropertyRef Name="DistiId" />
+    </Key>
+    <Property Name="DistiId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Good">
+    <Key>
+      <PropertyRef Name="GoodId" />
+    </Key>
+    <Property Name="GoodId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GoodName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="ManufacturerId" Type="int" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="Price" Type="money" Nullable="false" />
+    <Property Name="GoodCount" Type="numeric" Precision="18" Scale="3" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LoyaltyProgram">
+    <Key>
+      <PropertyRef Name="LoyaltyProgramId" />
+    </Key>
+    <Property Name="LoyaltyProgramId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Discount" Type="int" />
+  </EntityType>
+  <EntityType Name="Manufacturer">
+    <Key>
+      <PropertyRef Name="ManufacturerId" />
+    </Key>
+    <Property Name="ManufacturerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ManufacturerName" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Photo">
+    <Key>
+      <PropertyRef Name="PhotoId" />
+    </Key>
+    <Property Name="PhotoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PhotoPath" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="GoodId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sale">
+    <Key>
+      <PropertyRef Name="SaleId" />
+    </Key>
+    <Property Name="SaleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NumberSale" Type="int" Nullable="false" />
+    <Property Name="UserPhone" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="UserEmail" Type="nvarchar" MaxLength="80" Nullable="false" />
+    <Property Name="DateSale" Type="date" Nullable="false" />
+    <Property Name="Summa" Type="money" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SalePos">
+    <Key>
+      <PropertyRef Name="SalePosId" />
+    </Key>
+    <Property Name="SalePosId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SaleId" Type="int" Nullable="false" />
+    <Property Name="GoodId" Type="int" Nullable="false" />
+    <Property Name="CountGood" Type="int" Nullable="false" />
+    <Property Name="Summa" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Supply">
+    <Key>
+      <PropertyRef Name="SupplyId" />
+    </Key>
+    <Property Name="SupplyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GoodId" Type="int" Nullable="false" />
+    <Property Name="GoodCount" Type="int" />
+    <Property Name="Price" Type="float" />
+    <Property Name="Summa" Type="float" />
+    <Property Name="DistiId" Type="int" Nullable="false" />
+    <Property Name="Date" Type="date" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK__Customer__Loyalt__5EBF139D">
+    <End Role="LoyaltyProgram" Type="Self.LoyaltyProgram" Multiplicity="0..1" />
+    <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoyaltyProgram">
+        <PropertyRef Name="LoyaltyProgramId" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="LoyaltyProgramId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Good__CategoryId__3C69FB99">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Good" Type="Self.Good" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Good">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Good__Manufactur__3B75D760">
+    <End Role="Manufacturer" Type="Self.Manufacturer" Multiplicity="0..1" />
+    <End Role="Good" Type="Self.Good" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manufacturer">
+        <PropertyRef Name="ManufacturerId" />
+      </Principal>
+      <Dependent Role="Good">
+        <PropertyRef Name="ManufacturerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Photo__GoodId__70DDC3D8">
+    <End Role="Good" Type="Self.Good" Multiplicity="1" />
+    <End Role="Photo" Type="Self.Photo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Good">
+        <PropertyRef Name="GoodId" />
+      </Principal>
+      <Dependent Role="Photo">
+        <PropertyRef Name="GoodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Sale__UserId__6FE99F9F">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="Sale">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SalePos__GoodId__45F365D3">
+    <End Role="Good" Type="Self.Good" Multiplicity="1" />
+    <End Role="SalePos" Type="Self.SalePos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Good">
+        <PropertyRef Name="GoodId" />
+      </Principal>
+      <Dependent Role="SalePos">
+        <PropertyRef Name="GoodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SalePos__SaleId__44FF419A">
+    <End Role="Sale" Type="Self.Sale" Multiplicity="1" />
+    <End Role="SalePos" Type="Self.SalePos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sale">
+        <PropertyRef Name="SaleId" />
+      </Principal>
+      <Dependent Role="SalePos">
+        <PropertyRef Name="SaleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Supply__DistiId__6EF57B66">
+    <End Role="Disti" Type="Self.Disti" Multiplicity="1" />
+    <End Role="Supply" Type="Self.Supply" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Disti">
+        <PropertyRef Name="DistiId" />
+      </Principal>
+      <Dependent Role="Supply">
+        <PropertyRef Name="DistiId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Supply__GoodId__6383C8BA">
+    <End Role="Good" Type="Self.Good" Multiplicity="1" />
+    <End Role="Supply" Type="Self.Supply" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Good">
+        <PropertyRef Name="GoodId" />
+      </Principal>
+      <Dependent Role="Supply">
+        <PropertyRef Name="GoodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ShopAdoModelStoreContainer">
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Disti" EntityType="Self.Disti" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Good" EntityType="Self.Good" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoyaltyProgram" EntityType="Self.LoyaltyProgram" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Manufacturer" EntityType="Self.Manufacturer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Photo" EntityType="Self.Photo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sale" EntityType="Self.Sale" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SalePos" EntityType="Self.SalePos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Supply" EntityType="Self.Supply" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Customer__Loyalt__5EBF139D" Association="Self.FK__Customer__Loyalt__5EBF139D">
+      <End Role="LoyaltyProgram" EntitySet="LoyaltyProgram" />
+      <End Role="Customer" EntitySet="Customer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Good__CategoryId__3C69FB99" Association="Self.FK__Good__CategoryId__3C69FB99">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Good" EntitySet="Good" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Good__Manufactur__3B75D760" Association="Self.FK__Good__Manufactur__3B75D760">
+      <End Role="Manufacturer" EntitySet="Manufacturer" />
+      <End Role="Good" EntitySet="Good" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Photo__GoodId__70DDC3D8" Association="Self.FK__Photo__GoodId__70DDC3D8">
+      <End Role="Good" EntitySet="Good" />
+      <End Role="Photo" EntitySet="Photo" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Sale__UserId__6FE99F9F" Association="Self.FK__Sale__UserId__6FE99F9F">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Sale" EntitySet="Sale" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SalePos__GoodId__45F365D3" Association="Self.FK__SalePos__GoodId__45F365D3">
+      <End Role="Good" EntitySet="Good" />
+      <End Role="SalePos" EntitySet="SalePos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SalePos__SaleId__44FF419A" Association="Self.FK__SalePos__SaleId__44FF419A">
+      <End Role="Sale" EntitySet="Sale" />
+      <End Role="SalePos" EntitySet="SalePos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Supply__DistiId__6EF57B66" Association="Self.FK__Supply__DistiId__6EF57B66">
+      <End Role="Disti" EntitySet="Disti" />
+      <End Role="Supply" EntitySet="Supply" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Supply__GoodId__6383C8BA" Association="Self.FK__Supply__GoodId__6383C8BA">
+      <End Role="Good" EntitySet="Good" />
+      <End Role="Supply" EntitySet="Supply" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

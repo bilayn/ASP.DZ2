@@ -1,0 +1,36 @@
+﻿
+
+@{
+    ViewBag.Title = "Manufacturers";
+}
+
+<h2>Manufactures</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th/>
+        </tr>
+    </thead>
+    @foreach (var manufacturer in ViewBag.Manufacturers)
+    {
+    <tr>
+        <td>@manufacturer.ManufacturerId</td>
+        <td>@manufacturer.ManufacturerName</td>
+        <td>
+            @Html.ActionLink("Remove", "RemoveManufacturer", "Shop", new { id = manufacturer.ManufacturerId }, new { @class = "btn btn-danger"})
+        </td>
+    </tr>
+    }
+</table>
+<div class="text-center">
+    @for (int i = 0; i < (int)ViewBag.CouuntPagesManufacturers; i++)
+    {
+        @Html.ActionLink((i + 1).ToString(),
+                            "Manufacturers",
+                            "Shop",
+                            new { id = i + 1},
+                            new { @class = "mx-1 btn btn-info" })
+    }
+</div>

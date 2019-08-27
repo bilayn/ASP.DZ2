@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Goods";
+}
+
+<h2>Goods</h2>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Manufacturer</th>
+        <th>Category</th>
+        <th>Count</th>
+        <th>Price</th>
+        <th/>
+    </tr>
+    </thead>
+    @foreach (var good in ViewBag.Goods)
+    {
+        <tr>
+            <td>@good.GoodId</td>
+            <td>@good.GoodName</td>
+            <td>
+            @if (@good.Manufacturer?.ManufacturerName != null)
+            {
+                <h6>@good.Manufacturer.ManufacturerName</h6>
+            }
+            else
+            {
+                <h6>none</h6>
+            }
+            </td>
+            <td>
+                @if (@good.Category?.CategoryName != null)
+                {
+                    <h6>@good.Category.CategoryName</h6>
+                }
+                else
+                {
+                    <h6>none</h6>
+                }
+            </td>
+            <td>@good.GoodCount</td>
+            <td>@good.Price</td>
+            <td>
+                @Html.ActionLink("Remove", "RemoveGood", "Shop", new { id = @good.GoodId }, new { @class = "btn btn-danger"})
+            </td>
+        </tr>
+    }
+</table>
+<div class="text-center">
+    @for (int i = 0; i < (int)ViewBag.CountPagesGoods; i++)
+    {
+        @Html.ActionLink((i + 1).ToString(),
+                            "Goods",
+                            "Shop",
+                            new { id = i + 1},
+                            new { @class = "mx-1 btn btn-info" })
+    }
+</div>
+
