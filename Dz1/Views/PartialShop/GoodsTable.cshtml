@@ -1,0 +1,60 @@
+﻿@using Dz1.Models
+@model IEnumerable<Good>
+
+@{
+    AjaxOptions options = new AjaxOptions
+    {
+        UpdateTargetId = "resTable",
+    };
+}
+
+
+<table class="table table-striped" id="resTable">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Manufacturer</th>
+        <th>Category</th>
+        <th>Count</th>
+        <th>Price</th>
+        <th/>
+    </tr>
+    </thead>
+    @foreach (Good good in Model)
+    {
+        <tr>
+            <td>@good.GoodId</td>
+            <td>@good.GoodName</td>
+            <td>
+                @if (@good.Manufacturer?.ManufacturerName != null)
+                {
+                    <h6>@good.Manufacturer.ManufacturerName</h6>
+                }
+                else
+                {
+                    <h6>none</h6>
+                }
+            </td>
+            <td>
+                @if (@good.Category?.CategoryName != null)
+                {
+                    <h6>@good.Category.CategoryName</h6>
+                }
+                else
+                {
+                    <h6>none</h6>
+                }
+            </td>
+            <td>@good.GoodCount</td>
+            <td>@good.Price</td>
+            <td>
+                @Ajax.ActionLink("Remove", "GoodsTable", 
+                    "PartialShop", new { removeId = @good.GoodId}, 
+                    options, new {@class = "btn btn-danger"})
+            </td>
+        </tr>
+    }
+</table>
+
+

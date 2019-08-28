@@ -1,0 +1,29 @@
+﻿@using Dz1.Models
+@model IEnumerable<Category>
+
+@{
+    ViewBag.Title = "Categories";
+    AjaxOptions options = new AjaxOptions
+    {
+        UpdateTargetId = "resultTable",
+    };
+}
+
+
+<h2>Categories</h2>
+
+<div id="resultTable">
+    @*@{Html.RenderPartial("Table");}*@
+    @Html.Action("CategoriesTable")
+</div>
+
+<div class="text-center">
+    @for (int i = 0; i < (int)ViewBag.CountPagesCategories; i++)
+    {
+        @Ajax.ActionLink((i + 1).ToString(),
+            "CategoriesTable", "PartialShop",
+            new { id = i + 1 },
+            options,
+            new { @class = "mx-1 btn btn-info pageBtn" })
+    }
+</div>

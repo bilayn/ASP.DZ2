@@ -16,7 +16,7 @@ namespace Dz1
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Shop", action = "goods", id = UrlParameter.Optional }
+                defaults: new { controller = "PartialShop", action = "goods", id = UrlParameter.Optional }
             );
         }
     }

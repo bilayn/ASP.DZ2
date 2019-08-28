@@ -1,0 +1,32 @@
+﻿@using Dz1.Models
+@model IEnumerable<Manufacturer>
+
+@{
+    AjaxOptions options = new AjaxOptions
+    {
+        UpdateTargetId = "resTable",
+    };
+}
+
+
+<table class="table table-striped" id="resTable">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th />
+        </tr>
+    </thead>
+    @foreach (Manufacturer manufacturer in Model)
+    {
+        <tr>
+            <td>@manufacturer.ManufacturerId</td>
+            <td>@manufacturer.ManufacturerName</td>
+            <td>
+                @Ajax.ActionLink("Remove", "ManufacturersTable",
+                    "PartialShop", new { removeId = @manufacturer.ManufacturerId },
+                    options, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+</table>

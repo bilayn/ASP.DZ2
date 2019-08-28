@@ -1,0 +1,30 @@
+﻿@using Dz1.Models
+@model IEnumerable<Category>
+
+@{
+    AjaxOptions options = new AjaxOptions
+    {
+        UpdateTargetId = "resTable",
+    };
+}
+
+<table class="table table-striped" id="resTable">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    @foreach (Category category in Model)
+    {
+        <tr>
+            <td>@category.CategoryId</td>
+            <td>@category.CategoryName</td>
+            <td>
+                @Ajax.ActionLink("Remove", "CategoriesTable",
+                    "PartialShop", new { removeId = category.CategoryId },
+                    options, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+</table>
